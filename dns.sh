@@ -2,6 +2,12 @@
 
 # ------------------
 
+echo "Created by: Adriano Heller"
+
+echo "version: 1.0"
+
+echo "functionalities: DNS check and Reverse DNS check."
+
 echo "This script does a slight network check"
 
 # --------------------
