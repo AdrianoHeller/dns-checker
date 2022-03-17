@@ -3,6 +3,9 @@
 
 # -----------CONFIG------------
 CONFIG_PROVIDER="script.cf"
+#------------TEST--------------
+test [ ! -e "$CONFIG_PROVIDER" ] && echo "Current config file does not exist."
+test [ ! -r "$CONFIG_PROVIDER" ] && echo "User cannot read current config file."
 #------------VARS--------------
 IGNORE=
 PING=
