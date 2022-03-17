@@ -32,8 +32,8 @@ function check_domain() {
 }
 
 function check_success_log {
-  input=$1
-  file_name="success.txt"
+  local input=$1
+  local file_name="success.txt"
   if [ -f "$file_name" ]
   then
     $input > $file_name 2> "/dev/null"
@@ -44,9 +44,9 @@ function check_success_log {
 }
 
 function check_error_log {
-  path="./"
-  error_log_file="error.txt"
-  previous_input_command=$1
+  local path="./"
+  local error_log_file="error.txt"
+  local previous_input_command=$1
   if [ -f "$error_log_file" ]
   then
     $previous_input_command 2> "$path$error_log_file" 1> "/dev/null"
@@ -55,6 +55,22 @@ function check_error_log {
     $previous_input_command 2> "$path$error_log_file" 1> "/dev/null"
   fi
 }
+
+function process_external_config {
+  local var_key=$( echo $1 | cut -d = -f 1 )
+  local var_value=$( echo $1 | cut -d = -f 2 )
+  case $var_key in
+    IGNORE) IGNORE=$var_value ;;
+    PING) PING=$var_value     ;;
+  esac   
+}
+
+while read -r file_config
+do
+  test [ echo "$file_config" | cut -d " " -f 1 = "#" ] && continue
+  test [ ! "$file_config" ] && continue
+  process_external_config "$file_config"    
+done < $CONFIG_FILE
 
 check_domain
 check_success_log check_domain
