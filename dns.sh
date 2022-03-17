@@ -1,6 +1,12 @@
 #! /usr/bin/env bash
 
-# ------------------
+
+# -----------CONFIG------------
+CONFIG_PROVIDER="script.cf"
+#------------VARS--------------
+IGNORE=
+PING=
+# -----------INFO----------------
 
 echo "Created by: Adriano Heller"
 
